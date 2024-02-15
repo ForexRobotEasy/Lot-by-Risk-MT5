@@ -1,0 +1,74 @@
+
+//+------------------------------------------------------------------+
+//|                        Lot by Risk MT5                            |
+//|                      forexroboteasy.com                           |
+//|                   Forex Robot Easy Team                           |
+//+------------------------------------------------------------------+
+
+// User-friendly interface for placing orders
+void OnChartEvent(const int id, const long& lparam, const double& dparam, const string& sparam)
+{
+    if(id == CHARTEVENT_KEYDOWN)
+    {
+        if(sparam == 'T') // Take profit
+        {
+            double takeProfit = dparam; // Get take profit value from user input
+            // Place order with take profit using calculated volume
+            PlaceOrder(takeProfit, GetOrderVolume(takeProfit));
+        }
+        else if(sparam == 'P') // Price
+        {
+            double price = dparam; // Get price value from user input
+            // Place order with specified price using calculated volume
+            PlaceOrder(price, GetOrderVolume(price));
+        }
+        else if(sparam == 'S') // Stop loss
+        {
+            double stopLoss = dparam; // Get stop loss value from user input
+            // Place order with stop loss using calculated volume
+            PlaceOrder(stopLoss, GetOrderVolume(stopLoss));
+        }
+    }
+}
+
+// Control lines for order placement using specific hot keys
+double GetOrderVolume(const double& risk)
+{
+    double accountEquity = AccountInfoDouble(ACCOUNT_EQUITY); // Get account equity
+    double stopLoss = AccountInfoDouble(ACCOUNT_MARGIN_SO_CALL); // Get stop loss value
+    double volume = accountEquity * risk / stopLoss; // Calculate order volume based on risk
+    return volume;
+}
+
+// Customize hot keys in trading panel settings
+void CustomizeHotKeys()
+{
+    // Implement code to customize hot keys in trading panel settings
+}
+
+// Advanced risk calculation mechanism
+double CalculateRisk(const double& riskPercentage)
+{
+    double accountEquity = AccountInfoDouble(ACCOUNT_EQUITY); // Get account equity
+    double stopLoss = AccountInfoDouble(ACCOUNT_MARGIN_SO_CALL); // Get stop loss value
+    double calculatedRisk = accountEquity * riskPercentage / stopLoss; // Calculate risk based on given percentage
+    return calculatedRisk;
+}
+
+// Place order with specified parameters
+void PlaceOrder(const double& price, const double& volume)
+{
+    // Implement code to place order with specified parameters
+}
+
+// Provide traders with a clear understanding of potential risk
+void ShowRisk(const double& risk)
+{
+    // Implement code to display potential risk to the trader
+}
+
+// Logical conclusion of the code
+void OnDeinit(const int reason)
+{
+    // Implement code for the logical conclusion of the program
+}
